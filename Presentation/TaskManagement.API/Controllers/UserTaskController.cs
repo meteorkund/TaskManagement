@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using TaskManagement.Application.Features.Commands.UserTasks.CreateUserTask;
+using TaskManagement.Application.Features.Commands.UserTasks.RemoveUserTask;
+using TaskManagement.Application.Features.Commands.UserTasks.UpdateUserTask;
+using TaskManagement.Application.Features.Queries.UserTaks.GetByIdUserTasks;
+using TaskManagement.Application.Features.Queries.UserTasks.GetAllUserTasks;
 using TaskManagement.Application.Repositories.UserTaskRepositories;
 using TaskManagement.Domain.Entities;
 
@@ -9,60 +15,45 @@ namespace TaskManagement.API.Controllers
     [ApiController]
     public class UserTaskController : Controller
     {
-        readonly IUserTaskReadRepository _userTaskReadRepository;
-        readonly IUserTaskWriteRepository _userTaskWriteRepository;
+        readonly IMediator _mediator;
 
-        public UserTaskController(IUserTaskReadRepository userTaskReadRepository, IUserTaskWriteRepository userTaskWriteRepository)
+        public UserTaskController(IMediator mediator)
         {
-            _userTaskReadRepository = userTaskReadRepository;
-            _userTaskWriteRepository = userTaskWriteRepository;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get([FromQuery] GetAllUserTasksQueryRequest getAllUserTasksQueryRequest)
         {
-            IQueryable<UserTask> userTask =  _userTaskReadRepository.GetAll(false);
-            return Ok(userTask);
+            GetAllUserTasksQueryResponse response = await _mediator.Send(getAllUserTasksQueryRequest);
+            return Ok(response);
         }
 
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(string id)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> Get([FromRoute] GetByIdUserTaskQueryRequest getByIdUserTaskQueryRequest)
         {
-            UserTask userTask = await _userTaskReadRepository.GetByIdAsync(id, false);
-            return Ok(userTask);
+            GetByIdUserTaskQueryResponse response = await _mediator.Send(getByIdUserTaskQueryRequest);
+            return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(UserTask model)
+        public async Task<IActionResult> Post(CreateUserTaskCommandRequest createUserTaskCommandRequest)
         {
-            if (ModelState.IsValid)
-            {
-                await _userTaskWriteRepository.AddAsync(new()
-                {
-                    Description = model.Description,
-                });
-                await _userTaskWriteRepository.SaveAsync();
-                return StatusCode((int)HttpStatusCode.Created);
-            }
-            return Ok();
+            CreateUserTaskCommandResponse response = await _mediator.Send(createUserTaskCommandRequest);
+            return Ok(response);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(UserTask model)
+        public async Task<IActionResult> Put([FromBody] UpdateUserTaskCommandRequest updateUserTaskCommandRequest)
         {
-
-            UserTask userTask = await _userTaskReadRepository.GetByIdAsync(model.Id.ToString());
-            userTask.Description = model.Description;
-            await _userTaskWriteRepository.SaveAsync();
+            UpdateUserTaskCommandResponse response = await _mediator.Send(updateUserTaskCommandRequest);
             return Ok();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] RemoveUserTaskCommandRequest removeUserTaskCommandRequest)
         {
-            await _userTaskWriteRepository.RemoveAsync(id);
-            await _userTaskWriteRepository.SaveAsync();
+            RemoveUserTaskCommandResponse response = await _mediator.Send(removeUserTaskCommandRequest);
             return Ok();
         }
     }
