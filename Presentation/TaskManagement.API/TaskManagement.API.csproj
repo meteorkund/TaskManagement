@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Core\TaskManagement.Application\TaskManagement.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\TaskManagement.Infrastructure\TaskManagement.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\TaskManagement.Persistence\TaskManagement.Persistence.csproj" />
