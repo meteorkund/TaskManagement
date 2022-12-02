@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TaskManagement.Domain.Entities;
 using TaskManagement.Domain.Entities.Common;
+using TaskManagement.Domain.Entities.Identity;
 
 namespace TaskManagement.Persistence.Contexts
 {
-    public class TaskManagementDbContext : DbContext
+    public class TaskManagementDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public TaskManagementDbContext(DbContextOptions options) : base(options)
         {
@@ -20,9 +22,9 @@ namespace TaskManagement.Persistence.Contexts
             {
                 _ = data.State switch
                 {
-                    EntityState.Added => data.Entity.CreatedDate = DateTime.Now,
-                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.Now,
-                    _ => DateTime.Now
+                    EntityState.Added => data.Entity.CreatedDate = DateTime.UtcNow,
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
                 };
             }
                 

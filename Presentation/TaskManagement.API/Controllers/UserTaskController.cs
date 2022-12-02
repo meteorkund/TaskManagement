@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TaskManagement.Application.Features.Commands.UserTasks.CreateUserTask;
@@ -11,8 +12,9 @@ using TaskManagement.Domain.Entities;
 
 namespace TaskManagement.API.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Admin")]
+    [Route("api/[controller]")]
     public class UserTaskController : Controller
     {
         readonly IMediator _mediator;
