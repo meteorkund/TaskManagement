@@ -19,7 +19,7 @@ Backend w/OnionArchitecture - .NET7
 * ![ASP.NET CORE](https://img.shields.io/badge/ASP.NET%20CORE-5C2D91.svg?style=for-the-badge&logo=.net&logoColor=white)
 * ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
 * ![Swagger](https://img.shields.io/badge/-Swagger-%23239120.svg?style=for-the-badge&logo=swagger&logoColor=white)
-* ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Sever-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
+* ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 * ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 * ![Entity Framework Core](https://img.shields.io/badge/Entity%20Framework-blue?style=for-the-badge)
 * ![Fluent Validator](https://img.shields.io/badge/Fluent%20Validator-blue?style=for-the-badge)
