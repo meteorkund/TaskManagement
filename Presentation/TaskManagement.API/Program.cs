@@ -2,6 +2,9 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Context;
+using Serilog.Sinks.MSSqlServer;
 using System.Security.Claims;
 using System.Text;
 using TaskManagement.Application;
@@ -22,6 +25,29 @@ builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>
     .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<CreateUserTaskValidator>())
     .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
 
+#region LOGGER BUILD OPTIONS
+
+var columnOptions = new ColumnOptions();
+columnOptions.Store.Remove(StandardColumn.Properties);
+columnOptions.Store.Add(StandardColumn.LogEvent);
+columnOptions.LogEvent.DataLength = 2048;
+columnOptions.PrimaryKey = columnOptions.TimeStamp;
+columnOptions.TimeStamp.NonClusteredIndex = true;
+
+var sinkOptions = new MSSqlServerSinkOptions();
+sinkOptions.TableName = "Logs";
+
+builder.Logging.ClearProviders();
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Console()
+    .WriteTo.File("logs/log.txt")
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+#endregion
+builder.Host.UseSerilog();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer("Admin", options =>

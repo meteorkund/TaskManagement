@@ -11,5 +11,6 @@ namespace TaskManagement.Application.Features.Commands.UserTasks.UpdateUserTask
     {
         public string Id { get; set; }
         public string Description { get; set; }
+        public bool IsDone { get; set; }
     }
 }

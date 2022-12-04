@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TaskManagement.Application.Features.Commands.UserTasks.CreateUserTask;
+using TaskManagement.Application.Features.Commands.UserTasks.CreateUserTask.Daily;
 
 namespace TaskManagement.Application.Validators.UserTasks
 {
-    public class CreateUserTaskValidator : AbstractValidator<CreateUserTaskCommandRequest>
+    public class CreateUserTaskValidator : AbstractValidator<CreateUserTaskDailyCommandRequest>
     {
         public CreateUserTaskValidator()
         {
