@@ -13,7 +13,7 @@ Backend w/OnionArchitecture - .NET7
 - Authentication sağlanması adına JWT kullanılmıştır ve kullanıcının token süresi bitiminde authorize devamlılığı adına refresh token kullanılmıştır.
 - Sistemde oluşan info, warning ve error'lar için Serilog kütüphanesi kullanılmıştır. Oluşturulan log'lar hem veritabanı tarafında hem de fiziksel olarak saklanmıştır.
 
-## :gear: KULLANILAN ARAÇLAR
+## :toolbox: KULLANILAN ARAÇLAR
 * ![Visual Studio](https://img.shields.io/badge/Visual%20Studio-5C2D91.svg?style=for-the-badge&logo=visual-studio&logoColor=white)
 * ![.NET](https://img.shields.io/badge/.NET%207-5C2D91.svg?style=for-the-badge&logo=.net&logoColor=white)
 * ![ASP.NET CORE](https://img.shields.io/badge/ASP.NET%20CORE-5C2D91.svg?style=for-the-badge&logo=.net&logoColor=white)
@@ -27,7 +27,7 @@ Backend w/OnionArchitecture - .NET7
 * ![Serilog](https://img.shields.io/badge/Serilog-blue?style=for-the-badge)
 
 
-## KURULUM
+## :gear: KURULUM
 1. Repo'yu klonla
 ```bash
   git clone https://github.com/meteorkund/TaskManagement
